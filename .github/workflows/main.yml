@@ -3,12 +3,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name : Set Timezone
+      - name: Set Timezone
         uses: szenius/set-timezone@v1.0
         with:
           timezoneLinux: "Europe/Istanbul"
-      - name: Checkout repository contebt
-        uses: actions/checkout@v2 #Checkout the repository content on github runner.
+      - name: Checkout repository content
+        uses: actions/checkout@v2 # Check out the repository content on GitHub runner.
 
       - name: Setup Python Version
         uses: actions/setup-python@v2
