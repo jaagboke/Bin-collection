@@ -1,0 +1,36 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name : Set Timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "Europe/Istanbul"
+      - name: Checkout repository contebt
+        uses: actions/checkout@v2 #Checkout the repository content on github runner.
+
+      - name: Setup Python Version
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11 # Install the python version needed
+
+      - name: Install Python dependencies
+        uses: py-action/py-dependency-install@v2
+        with:
+          path: "requirements.txt"
+
+      - name: Execute Python script
+        run: python bin.py
+
+      - name: Commit files
+        run: |
+          git config --local user.name jaagboke
+          git config --local user.email "jaagboke@gmail.com"
+          git all --all
+          git commit -am "GH ACTION Headlines $(date)"
+          git push origin main
+        env:
+          REPO_KEY: $${{secrets.GITHUB_TOKEN}}
+          username: github-actions
+          
